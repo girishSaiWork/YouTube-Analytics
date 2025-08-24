@@ -77,10 +77,10 @@ def main():
             print()
         
         print(f"\nHigh Engagement Summary:")
-        print(f"• Average Engagement Score: {high_engagement['summary']['avg_engagement']:.4f}")
-        print(f"• Average Views: {high_engagement['summary']['avg_views']:,.0f}")
-        print(f"• Most Common Category: {high_engagement['summary']['most_common_category']}")
-        print(f"• Most Frequent Channel: {high_engagement['summary']['most_frequent_channel']}")
+        print(f"  Average Engagement Score: {high_engagement['summary']['avg_engagement']:.4f}")
+        print(f"  Average Views: {high_engagement['summary']['avg_views']:,.0f}")
+        print(f"  Most Common Category: {high_engagement['summary']['most_common_category']}")
+        print(f"  Most Frequent Channel: {high_engagement['summary']['most_frequent_channel']}")
         
         display_dataframe_nicely(
             high_engagement['category_analysis'], 
@@ -96,10 +96,10 @@ def main():
         trending_speed = insights_analyzer.analyze_trending_speed_by_category()
         
         print(f"\nTrending Speed Summary:")
-        print(f"• Overall Average Days to Trend: {trending_speed['overall_stats']['avg_days_to_trend']:.1f}")
-        print(f"• Overall Median Days to Trend: {trending_speed['overall_stats']['median_days_to_trend']:.1f}")
-        print(f"• Fastest Trending Category: {trending_speed['overall_stats']['fastest_category']}")
-        print(f"• Slowest Trending Category: {trending_speed['overall_stats']['slowest_category']}")
+        print(f"  Overall Average Days to Trend: {trending_speed['overall_stats']['avg_days_to_trend']:.1f}")
+        print(f"  Overall Median Days to Trend: {trending_speed['overall_stats']['median_days_to_trend']:.1f}")
+        print(f"  Fastest Trending Category: {trending_speed['overall_stats']['fastest_category']}")
+        print(f"  Slowest Trending Category: {trending_speed['overall_stats']['slowest_category']}")
         
         display_dataframe_nicely(
             trending_speed['category_speed_analysis'].head(10), 
@@ -111,9 +111,9 @@ def main():
         if len(trending_speed['quick_trending_categories']) > 0:
             for category in trending_speed['quick_trending_categories'].index:
                 avg_days = trending_speed['quick_trending_categories'].loc[category, 'days_to_trend_mean']
-                print(f"• {category}: {avg_days:.1f} days")
+                print(f"  {category}: {avg_days:.1f} days")
         else:
-            print("• No categories trend in less than 7 days on average")
+            print("  No categories trend in less than 7 days on average")
         
         # Analysis 3: Ranking Patterns
         logger.info("\n" + "="*60)
@@ -123,10 +123,10 @@ def main():
         ranking_patterns = insights_analyzer.analyze_ranking_patterns()
         
         print(f"\nRanking Pattern Summary:")
-        print(f"• Engagement-Rank Correlation: {ranking_patterns['engagement_rank_correlation']:.4f}")
-        print(f"• Correlation Strength: {ranking_patterns['insights']['correlation_strength']}")
-        print(f"• Correlation Direction: {ranking_patterns['insights']['correlation_direction']}")
-        print(f"• Most Top-Ranked Category: {ranking_patterns['insights']['most_top_ranked_category']}")
+        print(f"  Engagement-Rank Correlation: {ranking_patterns['engagement_rank_correlation']:.4f}")
+        print(f"  Correlation Strength: {ranking_patterns['insights']['correlation_strength']}")
+        print(f"  Correlation Direction: {ranking_patterns['insights']['correlation_direction']}")
+        print(f"  Most Top-Ranked Category: {ranking_patterns['insights']['most_top_ranked_category']}")
         
         display_dataframe_nicely(
             ranking_patterns['rank_engagement_analysis'].head(10), 
@@ -149,11 +149,11 @@ def main():
         
         print(f"\nTemporal Pattern Summary:")
         stats = temporal_patterns['temporal_stats']
-        print(f"• Same Day Trending: {stats['same_day_trending']:,} videos ({stats['same_day_percentage']:.1f}%)")
-        print(f"• Within 5 Days: {stats['within_5_days']:,} videos ({stats['within_5_days_percentage']:.1f}%)")
-        print(f"• Within 1 Week: {stats['within_week']:,} videos ({stats['within_week_percentage']:.1f}%)")
-        print(f"• Most Videos Trend Within: {temporal_patterns['insights']['most_videos_trend_within']}")
-        print(f"• Quickest Category: {temporal_patterns['insights']['quickest_category']}")
+        print(f"  Same Day Trending: {stats['same_day_trending']:,} videos ({stats['same_day_percentage']:.1f}%)")
+        print(f"  Within 5 Days: {stats['within_5_days']:,} videos ({stats['within_5_days_percentage']:.1f}%)")
+        print(f"  Within 1 Week: {stats['within_week']:,} videos ({stats['within_week_percentage']:.1f}%)")
+        print(f"  Most Videos Trend Within: {temporal_patterns['insights']['most_videos_trend_within']}")
+        print(f"  Quickest Category: {temporal_patterns['insights']['quickest_category']}")
         
         display_dataframe_nicely(
             temporal_patterns['temporal_by_category'].head(10), 
@@ -164,7 +164,7 @@ def main():
         print(f"\nDays to Trend Distribution (First 10 days):")
         for days, count in temporal_patterns['days_distribution'].head(10).items():
             percentage = (count / stats['total_videos']) * 100
-            print(f"• {days} days: {count:,} videos ({percentage:.1f}%)")
+            print(f"  {days} days: {count:,} videos ({percentage:.1f}%)")
         
         # Generate and save comprehensive report
         logger.info("\n" + "="*60)
@@ -177,7 +177,7 @@ def main():
         print(f"\nKEY BUSINESS INSIGHTS:")
         print("=" * 25)
         for insight in report['key_insights']:
-            print(f"• {insight}")
+            print(f"  {insight}")
         
         # Final summary
         logger.info("\n" + "="*60)
