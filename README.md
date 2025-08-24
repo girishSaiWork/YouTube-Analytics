@@ -339,6 +339,23 @@ YouTube Analytics/
 - **Business Intelligence**: KPI calculation and performance benchmarking
 - **Actionable Insights**: Strategic recommendations and data-driven conclusions
 
+### **Notebook 5**: `05_advanced_insights_deep_dive.ipynb` 🧠 **ADVANCED**
+**Purpose**: Advanced data science and deep analytical insights
+- **Time Series Analysis**: ARIMA, seasonal decomposition, and forecasting
+- **Natural Language Processing**: TF-IDF, sentiment analysis, and text mining
+- **Advanced Clustering**: K-means, DBSCAN, PCA, and t-SNE analysis
+- **Statistical Testing**: Hypothesis testing, correlation analysis, and effect sizes
+- **Anomaly Detection**: Outlier identification and viral content analysis
+
+### **Notebook 6**: `06_modeling_scenarios.ipynb` 🤖 **AI/ML MODELING**
+**Purpose**: Comprehensive machine learning modeling scenarios
+- **Predictive Models**: Viral prediction, view forecasting, engagement prediction
+- **Classification & Regression**: Multiple algorithms with performance comparison
+- **Time Series Forecasting**: ARIMA, Prophet, and exponential smoothing
+- **Recommendation Systems**: Content-based filtering and similarity analysis
+- **Deep Learning**: Neural networks for complex pattern recognition
+- **Business Intelligence**: ROI analysis and implementation roadmaps
+
 ## 🎯 Core Features & Capabilities
 
 ### **Data Engineering Excellence**
@@ -447,9 +464,14 @@ trending_rank = row_number().over(Window.partitionBy("trending_date", "category_
 - **Scalability**: Designed for datasets up to 1M+ records
 
 ### **Technology Stack**
-- **Data Processing**: Apache PySpark 3.4+
-- **Analytics**: Pandas 2.0+, NumPy 1.24+
-- **Visualization**: Matplotlib 3.7+, Seaborn 0.12+
+- **Data Processing**: Apache PySpark 3.5+
+- **Analytics**: Pandas 2.0+, NumPy 2.2+
+- **Machine Learning**: scikit-learn 1.7+, XGBoost 3.0+, LightGBM 4.6+
+- **Deep Learning**: TensorFlow 2.20+, Keras 3.11+ (optional)
+- **Time Series**: statsmodels 0.14+, Prophet 1.1+ (optional)
+- **NLP**: NLTK 3.9+, TextBlob 0.19+
+- **Advanced Analytics**: UMAP, HDBSCAN, NetworkX
+- **Visualization**: Matplotlib 3.7+, Seaborn 0.12+, Plotly 5.15+
 - **Storage**: Parquet (Apache Arrow), CSV
 - **Configuration**: YAML-based settings management
 
@@ -508,6 +530,7 @@ jupyter notebook notebooks/04_business_insights_analysis.ipynb
 ### **Documentation**
 - [Data Dictionary](docs/data_dictionary.md) - Complete schema documentation
 - [Analysis Visualization](docs/analysis_visualization.md) - Detailed analysis results
+- [Advanced Analytics Setup](docs/advanced_analytics_setup.md) - ML/AI capabilities guide
 - [API Documentation](docs/api_docs.md) - Function and class references
 
 ### **External Resources**
