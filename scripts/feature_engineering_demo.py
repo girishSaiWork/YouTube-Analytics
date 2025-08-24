@@ -154,6 +154,39 @@ def main():
                 "engagement_score", "days_to_trend", "trending_rank"
             ).orderBy("engagement_score", ascending=False).show(10, truncate=False)
 
+        # Save the engineered features
+        logger.info("\n" + "="*50)
+        logger.info("SAVING ENGINEERED FEATURES")
+        logger.info("="*50)
+
+        output_base_path = config.OUTPUT_DATA_PATH / "youtube_trending_videos_with_features"
+        feature_engineer.save_engineered_features(
+            df_with_rank,
+            str(output_base_path),
+            save_csv=True,
+            save_parquet=True
+        )
+
+        # Business Insights Analysis using Pandas
+        logger.info("\n" + "="*50)
+        logger.info("BUSINESS INSIGHTS ANALYSIS (PANDAS)")
+        logger.info("="*50)
+
+        from src.analytics.business_insights import YouTubeBusinessInsights
+
+        # Initialize business insights analyzer
+        insights_analyzer = YouTubeBusinessInsights(str(output_base_path) + '.parquet')
+
+        # Generate comprehensive report
+        report = insights_analyzer.generate_comprehensive_report(
+            save_path=str(config.OUTPUT_DATA_PATH / "business_insights_report.json")
+        )
+
+        # Display key insights
+        logger.info("\nKEY BUSINESS INSIGHTS:")
+        for insight in report['key_insights']:
+            logger.info(f"• {insight}")
+
         # Final summary
         logger.info("\n" + "="*60)
         logger.info("FEATURE ENGINEERING COMPLETED SUCCESSFULLY!")
@@ -162,7 +195,11 @@ def main():
         logger.info("1. engagement_score: Weighted metric combining likes, dislikes, and comments relative to views")
         logger.info("2. days_to_trend: Number of days between publish_time and trending_date")
         logger.info("3. trending_rank: Rank of videos within each trending_date and category based on views")
-        logger.info("\nAll features have been successfully calculated and analyzed!")
+        logger.info("\nGenerated outputs:")
+        logger.info(f"• {output_base_path}.parquet - Engineered features (parquet)")
+        logger.info(f"• {output_base_path}.csv - Engineered features (CSV)")
+        logger.info(f"• {config.OUTPUT_DATA_PATH / 'business_insights_report.json'} - Business insights report")
+        logger.info("\nAll features have been successfully calculated, analyzed, and saved!")
 
     except Exception as e:
         logger.error(f"Feature engineering failed: {e}")

@@ -227,29 +227,69 @@ class YouTubeFeatureEngineer:
         return correlations
     
     @staticmethod
-    def identify_top_performers(df: DataFrame, 
+    def identify_top_performers(df: DataFrame,
                               engagement_threshold: float = 0.01,
                               days_threshold: int = 2,
                               rank_threshold: int = 3) -> DataFrame:
         """
         Identify top performing videos based on engineered features.
-        
+
         Args:
             df: DataFrame with engineered features
             engagement_threshold: Minimum engagement score
             days_threshold: Maximum days to trend
             rank_threshold: Maximum trending rank
-            
+
         Returns:
             DataFrame with top performing videos
         """
         logger.info("Identifying top performing videos...")
-        
+
         top_performers = df.filter(
             (F.col("engagement_score") > engagement_threshold) &
             (F.col("days_to_trend") <= days_threshold) &
             (F.col("trending_rank") <= rank_threshold)
         )
-        
+
         logger.info(f"Found {top_performers.count()} top performing videos")
         return top_performers
+
+    @staticmethod
+    def save_engineered_features(df: DataFrame, output_path: str, save_csv: bool = True, save_parquet: bool = True) -> None:
+        """
+        Save the DataFrame with engineered features to output folder in both formats.
+
+        Args:
+            df: DataFrame with engineered features
+            output_path: Base path for saving files
+            save_csv: Whether to save as CSV
+            save_parquet: Whether to save as parquet
+        """
+        logger.info(f"Saving engineered features to {output_path}")
+
+        # Convert to pandas for saving
+        pandas_df = df.toPandas()
+
+        # Create output directory if it doesn't exist
+        from pathlib import Path
+        output_dir = Path(output_path).parent
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Save as parquet
+        if save_parquet:
+            parquet_path = f"{output_path}.parquet"
+            logger.info(f"Saving parquet file: {parquet_path}")
+            try:
+                pandas_df.to_parquet(parquet_path, index=False, engine='pyarrow')
+                logger.info(f"Successfully saved {len(pandas_df)} records to {parquet_path}")
+            except ImportError:
+                logger.warning("PyArrow not available for parquet, skipping parquet save")
+
+        # Save as CSV
+        if save_csv:
+            csv_path = f"{output_path}.csv"
+            logger.info(f"Saving CSV file: {csv_path}")
+            pandas_df.to_csv(csv_path, index=False)
+            logger.info(f"Successfully saved {len(pandas_df)} records to {csv_path}")
+
+        logger.info("Feature engineering data saved successfully")
